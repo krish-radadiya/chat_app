@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constans/mathod.dart';
+
 class Login extends StatelessWidget {
   const Login({super.key});
 
@@ -109,13 +111,10 @@ class Login extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  ElevatedButton(
-                    style: const ButtonStyle(
+                  const ElevatedButton(
+                    style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
                         Colors.orange,
-                        // Color(
-                        //   0xffD4E7C5,
-                        // ),
                       ),
                       foregroundColor: MaterialStatePropertyAll(
                         Colors.white,
@@ -127,8 +126,8 @@ class Login extends StatelessWidget {
                         ),
                       ),
                     ),
-                    onPressed: () {},
-                    child: const Text(
+                    onPressed: anonymous,
+                    child: Text(
                       "Login Anonymous",
                     ),
                   ),

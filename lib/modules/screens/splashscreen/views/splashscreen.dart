@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class Splash_screen extends StatelessWidget {
@@ -8,7 +7,10 @@ class Splash_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 5), () {
-      Navigator.pushNamed(context, 'login');
+      Navigator.pushNamed(
+        context,
+        'login',
+      );
     });
     return Scaffold(
       body: Column(
@@ -27,7 +29,7 @@ class Splash_screen extends StatelessWidget {
               ),
             ),
           ),
-          Text(
+          const Text(
             "Chat Hub",
             style: TextStyle(
               fontSize: 25,

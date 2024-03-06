@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constans/mathod.dart';
 
 class Login extends StatelessWidget {
@@ -23,8 +22,12 @@ class Login extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              margin: const EdgeInsets.all(5),
-              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.all(
+                5,
+              ),
+              padding: const EdgeInsets.all(
+                20,
+              ),
               height: 250,
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -81,7 +84,9 @@ class Login extends StatelessWidget {
           Expanded(
             flex: 3,
             child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
                     style: const ButtonStyle(
@@ -96,20 +101,23 @@ class Login extends StatelessWidget {
                       ),
                       minimumSize: MaterialStatePropertyAll(
                         Size(
-                          300,
+                          320,
                           50,
                         ),
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, 'home');
+                      Navigator.pushNamed(
+                        context,
+                        'home',
+                      );
                     },
                     child: const Text(
                       "Login",
                     ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    width: 15,
                   ),
                   const ElevatedButton(
                     style: ButtonStyle(
@@ -121,46 +129,44 @@ class Login extends StatelessWidget {
                       ),
                       minimumSize: MaterialStatePropertyAll(
                         Size(
-                          300,
+                          320,
                           50,
                         ),
                       ),
                     ),
                     onPressed: anonymous,
                     child: Text(
-                      "Login Anonymous",
+                      "sign in Anonymous",
                     ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    width: 15,
                   ),
-                  ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        Colors.cyan,
+                  // ElevatedButton(
+                  //   style: const ButtonStyle(
+                  //     backgroundColor: MaterialStatePropertyAll(
+                  //       Colors.cyan,
+                  //
+                  //       // Color(
+                  //       //   0xFFBFD8AF,
+                  //       // ),
+                  //     ),
+                  //     foregroundColor: MaterialStatePropertyAll(
+                  //       Colors.white,
+                  //     ),
+                  //     minimumSize: MaterialStatePropertyAll(
+                  //       Size(
+                  //         300,
+                  //         50,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   onPressed: () {},
+                  //   child: const Text(
+                  //     "Sign up",
+                  //   ),
+                  // ),
 
-                        // Color(
-                        //   0xFFBFD8AF,
-                        // ),
-                      ),
-                      foregroundColor: MaterialStatePropertyAll(
-                        Colors.white,
-                      ),
-                      minimumSize: MaterialStatePropertyAll(
-                        Size(
-                          300,
-                          50,
-                        ),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Sign up",
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
                   ElevatedButton(
                     style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
@@ -174,15 +180,40 @@ class Login extends StatelessWidget {
                       ),
                       minimumSize: MaterialStatePropertyAll(
                         Size(
-                          300,
+                          320,
                           50,
                         ),
                       ),
                     ),
                     onPressed: () {},
                     child: const Text(
-                      "Sign with Google",
+                      "Sign in Google",
                     ),
+                  ),
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Don\'t have an account? ',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                            fontSize: 16,
+                            decoration: TextDecoration.underline,
+                            // Change to your desired color
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

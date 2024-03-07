@@ -1,10 +1,11 @@
-import 'package:chat_app/modules/screens/Loginscreen/controller/login-controller.dart';
 import 'package:chat_app/modules/screens/login-screen/view/constant/const.dart';
 import 'package:chat_app/modules/screens/login-screen/view/constant/string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
+import '../controller/login-controller.dart';
 
 // Import other dependencies and files as needed
 

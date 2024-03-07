@@ -15,6 +15,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+    LoginController loginController = Get.put(LoginController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -171,41 +172,41 @@ class SignUpScreen extends StatelessWidget {
                               s_emailCon.clear();
                               s_passCon.clear();
                               s_conPassCon.clear();
-                            } else {}
+                              loginController.showLoading();
+                            } else {
+                              loginController.hideLoading();
+                            }
                           },
-                          child: GetBuilder<LoginController>(
-                            builder: (controller) {
-                              return Container(
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.all(5),
-                                width: w / 1.5,
-                                height: h / 13,
-                                decoration: BoxDecoration(
-                                  color: (Get.isDarkMode == true)
-                                      ? Colors.white
-                                      : Colors.black,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
+                          child: Obx(
+                            () => Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.all(5),
+                              width: w / 1.5,
+                              height: h / 13,
+                              decoration: BoxDecoration(
+                                color: (Get.isDarkMode == true)
+                                    ? Colors.white
+                                    : Colors.black,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
                                 ),
-                                child: controller.isLoading
-                                    ? CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          (Get.isDarkMode == true)
-                                              ? Colors.black
-                                              : Colors.white,
-                                        ),
-                                      )
-                                    : Text('Sign Up',
-                                        style: TextStyle(
-                                          color: (Get.isDarkMode == true)
-                                              ? Colors.black
-                                              : Colors.white,
-                                          fontSize: 22,
-                                        )),
-                              );
-                            },
+                              ),
+                              child: loginController.isLoading
+                                  ? CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        (Get.isDarkMode == true)
+                                            ? Colors.black
+                                            : Colors.white,
+                                      ),
+                                    )
+                                  : Text('Sign Up',
+                                      style: TextStyle(
+                                        color: (Get.isDarkMode == true)
+                                            ? Colors.black
+                                            : Colors.white,
+                                        fontSize: 22,
+                                      )),
+                            ),
                           ),
                         ),
                         SizedBox(

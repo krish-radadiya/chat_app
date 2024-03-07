@@ -1,6 +1,7 @@
-import 'package:chat_app/modules/screens/Loginscreen/model/sign-up-model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../modules/screens/login-screen/model/sign-up-model.dart';
 
 class AuthHelper {
   //todo:single turn

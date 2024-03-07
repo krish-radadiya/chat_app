@@ -1,11 +1,12 @@
 import 'dart:developer';
-import 'package:chat_app/modules/screens/Loginscreen/model/sign-up-model.dart';
 import 'package:chat_app/utils/helper/auth-helper.dart';
 import 'package:chat_app/utils/helper/firestore_helper.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../model/sign-up-model.dart';
 
 //todo: anonymous btn click
 anonymous() async {
@@ -46,7 +47,9 @@ login(
     ).show(context);
   } else {
     Get.offAllNamed('/home');
+    log('call');
     FireStoreHelper.fireStoreHelper.addUser();
+    log('called');
   }
 }
 

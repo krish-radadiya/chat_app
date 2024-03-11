@@ -6,7 +6,10 @@ class Splash_screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 5), () {
+    Timer(
+        const Duration(
+          seconds: 5,
+        ), () {
       Navigator.pushNamed(
         context,
         'login',
@@ -23,7 +26,7 @@ class Splash_screen extends StatelessWidget {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    'assets/Virtual-Assistant_1-1.gif',
+                    'lib/assets/Illustration.png',
                   ),
                 ),
               ),

@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:chat_app/constants/string.dart';
+import 'package:chat_app/modules/screens/chat-app/model/chat-model.dart';
 import 'package:chat_app/utils/helper/auth-helper.dart';
 import 'package:chat_app/utils/helper/firestore_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,187 +21,134 @@ class HomeScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: h / 25,
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: w / 30,
-                    ),
-                    Text(
-                      "Talk Pro",
-                      style: GoogleFonts.playball().copyWith(
-                        fontSize: 32,
-                        letterSpacing: 2,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Image(
-                        image: AssetImage((Get.isDarkMode == true)
-                            ? "lib/assets/like-white.png"
-                            : "lib/assets/like-dark.png"),
-                      ),
-                      onPressed: () {
-                        logout();
-                      },
-                      splashRadius: 5,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Get.toNamed('/userShow');
-                      },
-                      icon: Image(
-                        image: AssetImage(
-                          (Get.isDarkMode == true)
-                              ? "lib/assets/message-white.png"
-                              : "lib/assets/message-black.png",
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: (AuthHelper.auth.currentUser?.displayName == null)
+            ? Text(
+                "${AuthHelper.auth.currentUser?.email?.split("@")[0].capitalizeFirst}",
+                style: titleTextStyle(),
+              )
+            : Text(
+                "${AuthHelper.auth.currentUser?.displayName}",
+                style: titleTextStyle(),
+              ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Image.asset(
+              (Get.isDarkMode == true)
+                  ? "lib/assets/vedio-white.png"
+                  : "lib/assets/vedio-black.png",
+              height: h / 28,
             ),
           ),
-          Expanded(
-            flex: 20,
-            child: StreamBuilder(
-              stream: FireStoreHelper.fireStoreHelper.getPost(),
-              builder: (context, snapshot) {
-                log("executed");
-                if (snapshot.hasError) {
-                  return Center(child: Text("${snapshot.error}"));
-                } else if (snapshot.hasData) {
-                  log("else if");
-                  List<QueryDocumentSnapshot<Map<String, dynamic>>>? posts =
-                      snapshot.data?.docs;
-                  return ListView.builder(
-                    itemCount: posts?.length,
-                    itemBuilder: (context, i) {
-                      log("return");
-                      return Container(
-                        margin: const EdgeInsets.only(top: 20, bottom: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      foregroundImage:
-                                          NetworkImage(posts?[i]['dp']),
-                                      radius: 21,
-                                    ),
-                                    SizedBox(
-                                      width: w / 80,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          posts?[i]['username'],
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const Text(
-                                          "4 minutes ago",
-                                          // You can use the actual time
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Image(
-                                    image: AssetImage((Get.isDarkMode == true)
-                                        ? "lib/assets/dots-white.png"
-                                        : "lib/assets/dots-dark.png"),
-                                    height: h / 40,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Container(
-                              height: h / 2,
-                              width: double.infinity,
-                              child: Image.network(
-                                "${posts?[i]['post']}",
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              posts?[i]['description'],
-                              style: const TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Image(
-                                    image: AssetImage((Get.isDarkMode == true)
-                                        ? "lib/assets/like-white.png"
-                                        : "lib/assets/like-dark.png"),
-                                    height: h / 35,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Image(
-                                    image: AssetImage((Get.isDarkMode == true)
-                                        ? "lib/assets/com-white.png"
-                                        : "lib/assets/com-dark.png"),
-                                    height: h / 35,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Image(
-                                    image: AssetImage((Get.isDarkMode == true)
-                                        ? "lib/assets/send-white.png"
-                                        : "lib/assets/send-black.png"),
-                                    height: h / 35,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
+          IconButton(
+            onPressed: () {},
+            icon: Image.asset(
+              (Get.isDarkMode == true)
+                  ? "lib/assets/edit-white.png"
+                  : "lib/assets/edit-black.png",
+              height: h / 40,
             ),
           ),
         ],
       ),
+      body: StreamBuilder(
+        stream: FireStoreHelper.fireStoreHelper.fetchUser(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          } else if (snapshot.hasData) {
+            List<QueryDocumentSnapshot<Map<String, dynamic>>>? users =
+                snapshot.data?.docs;
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Container(
+                      padding: const EdgeInsets.only(left: 20),
+                      height: h / 20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: (Get.isDarkMode == true)
+                            ? Colors.grey.shade200
+                            : Colors.grey.shade200,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.search,
+                            color: Colors.grey.shade500,
+                          ),
+                          SizedBox(
+                            width: w / 30,
+                          ),
+                          Text(
+                            "Search",
+                            style: TextStyle(
+                              color: Colors.grey.shade500,
+                              fontSize: 16,
+                            ),
+                          )
+                        ],
+                      )),
+                ),
+                Expanded(
+                  flex: 20,
+                  child: ListView.builder(
+                    itemCount: users?.length,
+                    itemBuilder: (ctx, i) {
+                      return ListTile(
+                        onTap: () async {
+                          Chat chatDetails = Chat(
+                            message: '',
+                            receiver: users?[i]['uid'],
+                            sender: AuthHelper.auth.currentUser!.uid,
+                          );
+                          fetchedmsg = await FireStoreHelper.fireStoreHelper
+                              .fetchMessage(chatdetails: chatDetails);
+                          Get.toNamed('/chat', arguments: [
+                            "${users?[i]['name']}",
+                            "${users?[i]['dp']}",
+                            "${users?[i]['uid']}",
+                          ]);
+                        },
+                        title: Text(
+                          "${users?[i]['name']}",
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        subtitle: const Text("Sent 2h ago"),
+                        trailing: IconButton(
+                          onPressed: () {},
+                          icon: Image.asset(
+                            (Get.isDarkMode == true)
+                                ? "lib/assets/camera-white.png"
+                                : "lib/assets/camera-black.png",
+                            height: h / 30,
+                          ),
+                        ),
+                        leading: CircleAvatar(
+                          radius: 25,
+                          backgroundImage: NetworkImage("${users?[i]['dp']}"),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
+
+  TextStyle titleTextStyle() => const TextStyle(
+        fontSize: 20,
+      );
 }

@@ -35,7 +35,10 @@ class LoginScreen extends StatelessWidget {
             SafeArea(
               child: Container(
                 height: h / 4.5,
-                padding: const EdgeInsets.only(left: 20, top: 20),
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  top: 20,
+                ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -46,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Account',
+                      'chat app',
                       style: TextStyle(
                         fontSize: 37,
                         fontWeight: FontWeight.bold,
@@ -182,13 +185,15 @@ class LoginScreen extends StatelessWidget {
                                             : Colors.white,
                                       ),
                                     )
-                                  : Text('Sign In',
+                                  : Text(
+                                      'Log in',
                                       style: TextStyle(
                                         color: (Get.isDarkMode == true)
                                             ? Colors.black
                                             : Colors.white,
                                         fontSize: 22,
-                                      )),
+                                      ),
+                                    ),
                             );
                           },
                         ),
@@ -198,25 +203,30 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(30),
-              child: loginStack(),
+            const Padding(
+              padding: EdgeInsets.all(
+                30,
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                    onTap: google,
-                    child: loginContainer(
-                        img: 'lib/assets/google.png', context: context)),
+                  onTap: google,
+                  child: loginContainer(
+                    img: 'lib/assets/google.png',
+                    context: context,
+                  ),
+                ),
                 SizedBox(
                   width: w / 10,
                 ),
                 loginContainer(
-                    img: (Get.isDarkMode == true)
-                        ? 'lib/assets/github-white.png'
-                        : 'lib/assets/github-black.png',
-                    context: context),
+                  img: (Get.isDarkMode == true)
+                      ? 'lib/assets/facebook (1).png'
+                      : 'lib/assets/facebook (1).png',
+                  context: context,
+                ),
                 SizedBox(
                   width: w / 10,
                 ),
@@ -230,8 +240,8 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: h / 7,
+            const SizedBox(
+              height: 70,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

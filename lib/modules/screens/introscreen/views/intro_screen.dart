@@ -1,171 +1,136 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class introscreen extends StatefulWidget {
-  const introscreen({super.key});
+class AppIntro extends StatefulWidget {
+  const AppIntro({super.key});
 
   @override
-  State<introscreen> createState() => _PageViewExampleState();
+  AppIntroState createState() => AppIntroState();
 }
 
-class _PageViewExampleState extends State<introscreen>
-    with TickerProviderStateMixin {
-  late PageController _pageViewController;
-  late TabController _tabController;
+class AppIntroState extends State<AppIntro> {
+  final PageController _pageController = PageController(initialPage: 0);
+
+  final List _pages = [
+    {
+      'image': 'lib/assets/Conversation-rafiki.png',
+      'title': 'Welcome to My App',
+      'description':
+          'Start with a warm welcome message a brief description of the apps purpose or key features'
+    },
+    {
+      'image': 'lib/assets/Mobile user-cuate.png',
+      'title': 'Explore Features',
+      'description':
+          'Provide clear options for users to either sign up for a new account '
+    },
+    {
+      'image': 'lib/assets/Chatting-rafiki.png',
+      'title': 'Get Started',
+      'description': 'Let\'s get started!',
+    },
+  ];
+
   int _currentPageIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
-    _pageViewController = PageController();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pageViewController.dispose();
-    _tabController.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        PageView(
-          /// [PageView.scrollDirection] defaults to [Axis.horizontal].
-          /// Use [Axis.vertical] to scroll vertically.
-          controller: _pageViewController,
-          onPageChanged: _handlePageViewChanged,
-          children: <Widget>[
-            Center(
-              child: Text('First Page', style: textTheme.titleLarge),
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            PageView.builder(
+              controller: _pageController,
+              itemCount: _pages.length,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPageIndex = index;
+                });
+              },
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      _pages[index]['image'],
+                      height: 250,
+                      width: 250,
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    Text(
+                      _pages[index]['title'],
+                      style: const TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                      child: Text(
+                        _pages[index]['description'],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-            Center(
-              child: Text('Second Page', style: textTheme.titleLarge),
+            // Add circles to indicate the current page
+            Positioned(
+              bottom: 32.0,
+              left: 16.0,
+              child: Row(
+                children: [
+                  for (int i = 0; i < _pages.length; i++)
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                      ),
+                      height: 12.0,
+                      width: 12.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: i == _currentPageIndex
+                            ? Theme.of(context).cardColor
+                            : Colors.black,
+                      ),
+                    ),
+                ],
+              ),
             ),
-            Center(
-              child: Text('Third Page', style: textTheme.titleLarge),
+            // Add a button to move to the next page or get started
+            Positioned(
+              bottom: 32.0,
+              right: 16.0,
+              child: _currentPageIndex == _pages.length - 1
+                  ? ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'login');
+                      },
+                      child: const Text('Get Started'),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        // Move to the next page when the arrow button is tapped
+                        _pageController.nextPage(
+                          duration: const Duration(
+                            milliseconds: 500,
+                          ),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.arrow_forward,
+                      ),
+                    ),
             ),
           ],
         ),
-        PageIndicator(
-          tabController: _tabController,
-          currentPageIndex: _currentPageIndex,
-          onUpdateCurrentPageIndex: _updateCurrentPageIndex,
-          isOnDesktopAndWeb: _isOnDesktopAndWeb,
-        ),
-      ],
-    );
-  }
-
-  void _handlePageViewChanged(int currentPageIndex) {
-    if (!_isOnDesktopAndWeb) {
-      return;
-    }
-    _tabController.index = currentPageIndex;
-    setState(() {
-      _currentPageIndex = currentPageIndex;
-    });
-  }
-
-  void _updateCurrentPageIndex(int index) {
-    _tabController.index = index;
-    _pageViewController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  bool get _isOnDesktopAndWeb {
-    if (kIsWeb) {
-      return true;
-    }
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.macOS:
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-        return true;
-      case TargetPlatform.android:
-      case TargetPlatform.iOS:
-      case TargetPlatform.fuchsia:
-        return false;
-    }
-  }
-}
-
-/// Page indicator for desktop and web platforms.
-///
-/// On Desktop and Web, drag gesture for horizontal scrolling in a PageView is disabled by default.
-/// You can defined a custom scroll behavior to activate drag gestures,
-/// see https://docs.flutter.dev/release/breaking-changes/default-scroll-behavior-drag.
-///
-/// In this sample, we use a TabPageSelector to navigate between pages,
-/// in order to build natural behavior similar to other desktop applications.
-class PageIndicator extends StatelessWidget {
-  const PageIndicator({
-    super.key,
-    required this.tabController,
-    required this.currentPageIndex,
-    required this.onUpdateCurrentPageIndex,
-    required this.isOnDesktopAndWeb,
-  });
-
-  final int currentPageIndex;
-  final TabController tabController;
-  final void Function(int) onUpdateCurrentPageIndex;
-  final bool isOnDesktopAndWeb;
-
-  @override
-  Widget build(BuildContext context) {
-    if (!isOnDesktopAndWeb) {
-      return const SizedBox.shrink();
-    }
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-            splashRadius: 16.0,
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              if (currentPageIndex == 0) {
-                return;
-              }
-              onUpdateCurrentPageIndex(currentPageIndex - 1);
-            },
-            icon: const Icon(
-              Icons.arrow_left_rounded,
-              size: 32.0,
-            ),
-          ),
-          TabPageSelector(
-            controller: tabController,
-            color: colorScheme.background,
-            selectedColor: colorScheme.primary,
-          ),
-          IconButton(
-            splashRadius: 16.0,
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              if (currentPageIndex == 2) {
-                return;
-              }
-              onUpdateCurrentPageIndex(currentPageIndex + 1);
-            },
-            icon: const Icon(
-              Icons.arrow_right_rounded,
-              size: 32.0,
-            ),
-          ),
-        ],
       ),
     );
   }

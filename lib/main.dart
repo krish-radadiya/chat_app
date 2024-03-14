@@ -1,6 +1,7 @@
 import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/modules/screens/chat-app/view/chat-app.dart';
 import 'package:chat_app/modules/screens/home-screen/view/home-screen.dart';
+import 'package:chat_app/modules/screens/introscreen/views/intro_screen.dart';
 import 'package:chat_app/modules/screens/login-screen/view/login-screen.dart';
 import 'package:chat_app/modules/screens/sign-up-screen/views/sign-up-screen.dart';
 import 'package:chat_app/modules/screens/splashscreen/views/splashscreen.dart';
@@ -32,6 +33,10 @@ void main() async {
         GetPage(
           name: '/',
           page: () => const Splash_screen(),
+        ),
+        GetPage(
+          name: '/intro',
+          page: () => AppIntro(),
         ),
         GetPage(
           name: '/login',

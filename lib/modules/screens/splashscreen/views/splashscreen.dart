@@ -12,7 +12,7 @@ class Splash_screen extends StatelessWidget {
         ), () {
       Navigator.pushNamed(
         context,
-        'login',
+        'intro',
       );
     });
     return Scaffold(

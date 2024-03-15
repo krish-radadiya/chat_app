@@ -58,3 +58,19 @@ Project Evaluation:
 - Presentation quality and clarity of communication
 - 
 - =====================Screen Shots======================
+
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/6acb3667-4e9c-49c5-9c39-098ab3643e48" width="250">
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/3a92e4f2-71ce-4f5e-bedf-ff52c92d5d00" width="250">
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/b3f5d05d-9173-4ac8-a121-bf0badc03d12" width="250">
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/c24f593b-98bc-46b6-b65b-861d7e367588" width="250">
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/fe09c259-2762-42cc-a07a-c9110f0acb68" width="250">
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/6999b6e8-7c18-458a-86be-cb709046d806" width="250">
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/32cddb95-692a-4bf3-99d5-6941f5c99d9e" width="250">
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/19d7dc62-e05f-46e2-a1fb-7eb3a9fd42c1" width="250">
+<img src="https://github.com/krish-radadiya/chat_app/assets/113992828/73c02a06-ccae-4de9-953f-3bcb7624041d" width="250">
+
+
+
+
+
+

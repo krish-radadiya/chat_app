@@ -21,7 +21,9 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Telegram"),
+        title: const Text(
+          "Chat App",
+        ),
         // title: (AuthHelper.auth.currentUser?.displayName == null)
         //     ? Text(
         //         "${AuthHelper.auth.currentUser?.email?.split("@")[0].capitalizeFirst}",

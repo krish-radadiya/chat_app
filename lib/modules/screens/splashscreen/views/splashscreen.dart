@@ -33,7 +33,7 @@ class Splash_screen extends StatelessWidget {
             ),
           ),
           const Text(
-            "Chat Hub",
+            "Chat app",
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,

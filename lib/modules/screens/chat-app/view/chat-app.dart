@@ -20,14 +20,17 @@ class ChatScreen extends StatelessWidget {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
-            "https://i.pinimg.com/564x/8b/7d/c3/8b7dc34ea2ad3ad34b9d38fcbaf12741.jpg",
+            //"https://i.pinimg.com/originals/be/3c/55/be3c55a51e534e80169233165703dae8.jpg",
+            "https://w0.peakpx.com/wallpaper/154/372/HD-wallpaper-telegram-background-whatsapp-creative-android-pattern-texture-abstract.jpg",
+            //"https://images.unsplash.com/photo-1524799526615-766a9833dec0?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MnwxNDA2NTk5fHxlbnwwfHx8fHw%3D",
+            // "https://i.pinimg.com/564x/8b/7d/c3/8b7dc34ea2ad3ad34b9d38fcbaf12741.jpg",
           ),
           fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black12,
+          backgroundColor: Colors.transparent,
           title: Row(
             children: [
               const CircleAvatar(
@@ -65,42 +68,48 @@ class ChatScreen extends StatelessWidget {
             ),
           ],
         ),
+        backgroundColor: Colors.transparent,
         body: Column(
           children: [
             Expanded(
-                child: StreamBuilder(
-              stream: fetchedmsg,
-              builder: (ctx, snapshot) {
-                if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                } else if (snapshot.hasData) {
-                  List<QueryDocumentSnapshot<Map<String, dynamic>>>? messages =
-                      snapshot.data?.docs;
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                        reverse: true,
-                        itemCount: messages?.length,
-                        itemBuilder: (ctx, i) {
-                          return Align(
-                            alignment:
-                                (arguments[2] != messages?[i]['receivedby'])
-                                    ? Alignment.centerLeft
-                                    : Alignment.centerRight,
-                            child: Chip(
-                              label: Text(
-                                "${messages?[i]['message']}",
+              child: StreamBuilder(
+                stream: fetchedmsg,
+                builder: (ctx, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  } else if (snapshot.hasData) {
+                    List<QueryDocumentSnapshot<Map<String, dynamic>>>?
+                        messages = snapshot.data?.docs;
+                    return Padding(
+                      padding: const EdgeInsets.all(
+                        8.0,
+                      ),
+                      child: ListView.builder(
+                          reverse: true,
+                          itemCount: messages?.length,
+                          itemBuilder: (ctx, i) {
+                            return Align(
+                              alignment:
+                                  (arguments[2] != messages?[i]['receivedby'])
+                                      ? Alignment.centerLeft
+                                      : Alignment.centerRight,
+                              child: Chip(
+                                label: Text(
+                                  "${messages?[i]['message']}",
+                                ),
                               ),
-                            ),
-                          );
-                        }),
-                  );
-                }
-                return const CircularProgressIndicator();
-              },
-            )),
+                            );
+                          }),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(
+                8.0,
+              ),
               child: instagramStyleTextField(receiver: arguments[2]),
             ),
           ],
@@ -122,16 +131,16 @@ class ChatScreen extends StatelessWidget {
         children: [
           Expanded(
             child: TextFormField(
-              //cursorColor: Colors.black,
+              cursorColor: Colors.white,
               controller: messageController,
               onChanged: (val) {
                 message = val;
               },
               decoration: const InputDecoration(
                 border: InputBorder.none,
-                hintText: '   Send message...',
+                hintText: '    Send message...',
                 hintStyle: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -153,6 +162,7 @@ class ChatScreen extends StatelessWidget {
             icon: const Icon(
               Icons.send,
             ),
+            color: Colors.white,
           ),
         ],
       ),
